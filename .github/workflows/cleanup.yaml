@@ -1,10 +1,9 @@
 name: Deploy function using github actions
 
-# When pushed to Master will execute serverless deploy
+# On closer of a pr will delete the corespondent stage environment 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    types: [closed]
 jobs:
   deploy:
     name: deploy
@@ -13,10 +12,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: yarn install
       uses: actions/setup-node@v1
-    - name: serverless deploy
+    - name: serverless remove env
       uses: serverless/github-action@master
       with:
-        args: deploy
+        args: remove --stage pr$(jq --raw-output .number "$GITHUB_EVENT_PATH")
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+

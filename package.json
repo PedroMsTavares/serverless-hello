@@ -1,0 +1,8 @@
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:PedroMsTavares/serverless-hello.git",
+  "author": "Serverlessp <pedrotavares.ms@gmail.com>",
+  "license": "MIT"
+}
